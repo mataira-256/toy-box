@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Material Counter</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <header class="page-header">
+      <div>
+        <p class="eyebrow">Simple Manufacturing Tool</p>
+        <h1>Material Counter</h1>
+        <p class="subtitle">製造物ごとの必要素材をまとめて管理します。</p>
+      </div>
+    </header>
+
+    <!-- 製造物追加エリア -->
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Add Product</h2>
+      </div>
+
+      <div class="add-form">
+        <div class="field">
+          <label for="name">Product Name</label>
+          <input type="text" id="name" placeholder="例: Iron Sword">
+        </div>
+
+        <div class="field small-field">
+          <label for="qty">Quantity</label>
+          <input type="number" id="qty" value="1" min="1">
+        </div>
+
+        <button id="addBtn" class="primary-btn">Add Product</button>
+      </div>
+    </section>
+
+    <!-- 製造物一覧 -->
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Products</h2>
+      </div>
+      <div id="products" class="product-list"></div>
+    </section>
+
+    <!-- 集計表示 -->
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Summary</h2>
+      </div>
+      <div id="summary"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
