@@ -92,7 +92,7 @@ int main() {
     vector<double> selected_values;
 
     // 「外れ値を省いてもDATA_SIZEが確保できる数」を探す。
-    // 外れ値判定は、tukey法のあとに標準偏差
+    // 外れ値判定は、tukey法のあとに標準偏差を使った判定
     // 探索量的に全探索で大丈夫だろうけど、せっかくなら二分探索
     int left = DATA_SIZE, right = log_values.size();
     while(left <= right){
@@ -112,12 +112,12 @@ int main() {
             }
         }
 
-        // 標準偏差+-3で使う値を用意して行って
+        // 標準偏差を使った外れ値判定使う値を用意して行って
         vector<double> sigma_filtered_values;
         double ave = calc_ave(tukey_filtered_values);
         double std = calc_std(tukey_filtered_values, ave);
 
-        // 標準偏差+-3で外れ値でない値の数を数えて
+        // 標準偏差を元に外れ値でない値の数を数えて
         rep(i, tukey_filtered_values.size()){
             if(ave - std * SIGMA_K <= tukey_filtered_values.at(i) && tukey_filtered_values.at(i) <= ave + std * SIGMA_K){
                 sigma_filtered_values.push_back(tukey_filtered_values.at(i));
@@ -141,12 +141,14 @@ int main() {
     }
 
     // 表示
-    double ave = calc_ave(selected_values);
-    double std = calc_std(selected_values, ave);
+    vector <double> final_values(selected_values.begin(), selected_values.begin() + DATA_SIZE);
+
+    double ave = calc_ave(final_values);
+    double std = calc_std(final_values, ave);
 
     printf("Very Fast: %.1f\n", exp(ave - std * 2));
     printf("Fast:      %.1f\n", exp(ave - std * 1));
     printf("Normal:    %.1f\n", exp(ave));
     printf("Slow:      %.1f\n", exp(ave + std * 1));
-    printf("Very Slow: %.1f", exp(ave + std * 2));
+    printf("Very Slow: %.1f",   exp(ave + std * 2));
 }
